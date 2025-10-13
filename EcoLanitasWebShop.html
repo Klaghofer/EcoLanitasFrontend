@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diseños de Ropa - Catálogo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        header {
+            background-color: #222;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+
+        nav {
+            margin-top: 15px;
+        }
+
+        nav button {
+            background: none;
+            border: 2px solid white;
+            color: white;
+            padding: 10px 30px;
+            margin: 0 10px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s;
+            letter-spacing: 1px;
+        }
+
+        nav button:hover,
+        nav button.active {
+            background-color: white;
+            color: #222;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* Galería estilo revista */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .gallery-item {
+            background: white;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .item-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .item-number {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #222;
+            margin-bottom: 10px;
+        }
+
+        .item-description {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Formulario de compra */
+        .purchase-form {
+            background: white;
+            padding: 40px;
+            max-width: 600px;
+            margin: 30px auto;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-radius: 5px;
+        }
+
+        .purchase-form h2 {
+            margin-bottom: 30px;
+            color: #222;
+            text-align: center;
+            font-size: 2em;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #222;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .card-info {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .card-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 15px;
+        }
+
+        .submit-btn {
+            background-color: #222;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1em;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            background-color: #444;
+        }
+
+        .info-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+        }
+
+        .info-box p {
+            margin: 5px 0;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+
+            .purchase-form {
+                padding: 25px;
+            }
+
+            .card-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ECO LANITAS</h1>
+        <h1>CATALOGO 2026</h1>
+        <nav>
+            <button class="nav-btn active" data-section="galeria">Galería</button>
+            <button class="nav-btn" data-section="comprar">Hacer Pedido</button>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- Sección Galería -->
+        <section id="galeria" class="section active">
+            <div class="gallery">
+                <!-- Ejemplo de items - Reemplaza las imágenes con tus diseños -->
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=400&h=600&fit=crop" alt="Diseño 001">
+                    <div class="item-info">
+                        <div class="item-number">Nº 001</div>
+                        <p class="item-description">Vestido elegante de noche</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=400&h=600&fit=crop" alt="Diseño 002">
+                    <div class="item-info">
+                        <div class="item-number">Nº 002</div>
+                        <p class="item-description">Conjunto casual primavera</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=400&h=600&fit=crop" alt="Diseño 003">
+                    <div class="item-info">
+                        <div class="item-number">Nº 003</div>
+                        <p class="item-description">Abrigo de invierno</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&h=600&fit=crop" alt="Diseño 004">
+                    <div class="item-info">
+                        <div class="item-number">Nº 004</div>
+                        <p class="item-description">Blusa formal</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1504198458649-3128b932f49e?w=400&h=600&fit=crop" alt="Diseño 005">
+                    <div class="item-info">
+                        <div class="item-number">Nº 005</div>
+                        <p class="item-description">Pantalón ejecutivo</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=400&h=600&fit=crop" alt="Diseño 006">
+                    <div class="item-info">
+                        <div class="item-number">Nº 006</div>
+                        <p class="item-description">Vestido de verano</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?w=400&h=600&fit=crop" alt="Diseño 007">
+                    <div class="item-info">
+                        <div class="item-number">Nº 007</div>
+                        <p class="item-description">Chaqueta moderna</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1467043237213-65f2da53396f?w=400&h=600&fit=crop" alt="Diseño 008">
+                    <div class="item-info">
+                        <div class="item-number">Nº 008</div>
+                        <p class="item-description">Falda midi elegante</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1558769132-cb1aea3c99ee?w=400&h=600&fit=crop" alt="Diseño 009">
+                    <div class="item-info">
+                        <div class="item-number">Nº 009</div>
+                        <p class="item-description">Conjunto deportivo chic</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Compra/Pedido -->
+        <section id="comprar" class="section">
+            <div class="purchase-form">
+                <h2>Realizar Pedido</h2>
+                
+                <div class="info-box">
+                    <p><strong>Información importante:</strong></p>
+                    <p>✦ Las prendas se fabrican bajo pedido</p>
+                    <p>✦ Puedes pagar el total o 50% de adelanto</p>
+                    <p>✦ Indica los números de las prendas que deseas</p>
+                </div>
+
+                <form id="orderForm">
+                    <div class="form-group">
+                        <label for="nombre">Nombre Completo *</label>
+                        <input type="text" id="nombre" name="nombre" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telefono">Teléfono *</label>
+                        <input type="tel" id="telefono" name="telefono" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="prendas">Números de Prendas a Ordenar *</label>
+                        <textarea id="prendas" name="prendas" placeholder="Ejemplo: 001, 003, 007" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="medidas">Medidas / Tallas</label>
+                        <textarea id="medidas" name="medidas" placeholder="Indica tus medidas o talla"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tipoPago">Tipo de Pago *</label>
+                        <select id="tipoPago" name="tipoPago" required>
+                            <option value="">Selecciona una opción</option>
+                            <option value="total">Pago Total</option>
+                            <option value="mitad">50% Adelanto</option>
+                        </select>
+                    </div>
+
+                    <div class="card-info">
+                        <h3 style="margin-bottom: 20px;">Información de Tarjeta</h3>
+                        
+                        <div class="form-group">
+                            <label for="cardNumber">Número de Tarjeta *</label>
+                            <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cardName">Nombre en la Tarjeta *</label>
+                            <input type="text" id="cardName" name="cardName" required>
+                        </div>
+
+                        <div class="card-row">
+                            <div class="form-group">
+                                <label for="expiry">Fecha de Expiración *</label>
+                                <input type="text" id="expiry" name="expiry" placeholder="MM/AA" maxlength="5" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cvv">CVV *</label>
+                                <input type="text" id="cvv" name="cvv" placeholder="123" maxlength="4" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">CONFIRMAR PEDIDO</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Navegación entre secciones
+        const navButtons = document.querySelectorAll('.nav-btn');
+        const sections = document.querySelectorAll('.section');
+
+        navButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const sectionId = btn.dataset.section;
+                
+                navButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                sections.forEach(s => s.classList.remove('active'));
+                document.getElementById(sectionId).classList.add('active');
+                
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+        // Formateo automático de número de tarjeta
+        document.getElementById('cardNumber').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s/g, '');
+            let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+            e.target.value = formattedValue;
+        });
+
+        // Formateo de fecha de expiración
+        document.getElementById('expiry').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.slice(0, 2) + '/' + value.slice(2, 4);
+            }
+            e.target.value = value;
+        });
+
+        // Solo números en CVV
+        document.getElementById('cvv').addEventListener('input', function(e) {
+            e.target.value = e.target.value.replace(/\D/g, '');
+        });
+
+        // Manejo del formulario
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Aquí se procesaría el pedido
+            alert('¡Pedido recibido! Nos pondremos en contacto contigo pronto para confirmar los detalles.');
+            
+            // Reiniciar formulario
+            this.reset();
+        });
+    </script>
+</body>
+</html>
