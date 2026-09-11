@@ -4,313 +4,165 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diseños de Ropa - Catálogo</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Georgia', serif;
-            background-color: #f5f5f5;
-            color: #333;
-        }
-
-        header {
-            background-color: #222;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        header h1 {
-            font-size: 2.5em;
-            letter-spacing: 3px;
-            margin-bottom: 10px;
-        }
-
-        nav {
-            margin-top: 15px;
-        }
-
-        nav button {
-            background: none;
-            border: 2px solid white;
-            color: white;
-            padding: 10px 30px;
-            margin: 0 10px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: all 0.3s;
-            letter-spacing: 1px;
-        }
-
-        nav button:hover,
-        nav button.active {
-            background-color: white;
-            color: #222;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        .section {
-            display: none;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        /* Galería estilo revista */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .gallery-item {
-            background: white;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-
-        .gallery-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .item-info {
-            padding: 20px;
-            text-align: center;
-        }
-
-        .item-number {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #222;
-            margin-bottom: 10px;
-        }
-
-        .item-description {
-            color: #666;
-            line-height: 1.6;
-        }
-
-        /* Formulario de compra */
-        .purchase-form {
-            background: white;
-            padding: 40px;
-            max-width: 600px;
-            margin: 30px auto;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            border-radius: 5px;
-        }
-
-        .purchase-form h2 {
-            margin-bottom: 30px;
-            color: #222;
-            text-align: center;
-            font-size: 2em;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 4px;
-            font-size: 1em;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #222;
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .card-info {
-            background: #f9f9f9;
-            padding: 20px;
-            border-radius: 5px;
-            margin: 20px 0;
-        }
-
-        .card-row {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 15px;
-        }
-
-        .submit-btn {
-            background-color: #222;
-            color: white;
-            padding: 15px 40px;
-            border: none;
-            border-radius: 4px;
-            font-size: 1.1em;
-            cursor: pointer;
-            width: 100%;
-            transition: background-color 0.3s;
-            letter-spacing: 1px;
-        }
-
-        .submit-btn:hover {
-            background-color: #444;
-        }
-
-        .info-box {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 15px;
-            margin-bottom: 25px;
-            border-radius: 4px;
-        }
-
-        .info-box p {
-            margin: 5px 0;
-            line-height: 1.6;
-        }
-
-        @media (max-width: 768px) {
-            .gallery {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-                gap: 20px;
-            }
-
-            .purchase-form {
-                padding: 25px;
-            }
-
-            .card-row {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
         <h1>ECO LANITAS</h1>
         <h1>CATALOGO 2026</h1>
         <nav>
-            <button class="nav-btn active" data-section="galeria">Galería</button>
-            <button class="nav-btn" data-section="comprar">Hacer Pedido</button>
+            <button class="nav-btn nav-gallery active" data-section="galeria">Galería</button>
+            <button class="nav-btn nav-history" data-section="historia">Nuestra Historia</button>
+            <button class="nav-btn nav-order" data-section="comprar">Hacer Pedido</button>
         </nav>
     </header>
 
     <div class="container">
         <!-- Sección Galería -->
         <section id="galeria" class="section active">
+            <div class="price-filter">
+                <div class="filter-description">
+                    <h2>Encuentra tu prenda</h2>
+                    <p>Filtra el catálogo por rango de precio.</p>
+                </div>
+                <div class="price-filter-controls">
+                    <label for="minPrice">Desde (€)</label>
+                    <input type="number" id="minPrice" min="0" placeholder="0">
+                    <label for="maxPrice">Hasta (€)</label>
+                    <input type="number" id="maxPrice" min="0" placeholder="Sin límite">
+                    <button type="button" id="filterByPrice" class="filter-btn">Buscar</button>
+                    <button type="button" id="clearPriceFilter" class="clear-filter-btn">Limpiar</button>
+                </div>
+            </div>
+            <p id="filterMessage" class="filter-message" aria-live="polite"></p>
             <div class="gallery">
                 <!-- Ejemplo de items - Reemplaza las imágenes con tus diseños -->
-                <div class="gallery-item">
+                <div class="gallery-item" data-price="89">
                     <img src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=400&h=600&fit=crop" alt="Diseño 001">
+                    <span class="discount-badge">12,5% DTO.</span>
                     <div class="item-info">
-                        <div class="item-number">Nº 001</div>
-                        <p class="item-description">Vestido elegante de noche</p>
+                        <div class="item-number">Vestido elegante de noche</div>
+                        <p class="item-description">Nº 001</p>
+                        <p class="item-price">€89</p>
                     </div>
                 </div>
 
-                <div class="gallery-item">
+                <div class="gallery-item" data-price="65">
                     <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=400&h=600&fit=crop" alt="Diseño 002">
+                    <span class="discount-badge">25% DTO.</span>
                     <div class="item-info">
-                        <div class="item-number">Nº 002</div>
-                        <p class="item-description">Conjunto casual primavera</p>
+                        <div class="item-number">Conjunto casual primavera</div>
+                        <p class="item-description">Nº 002</p>
+                        <p class="item-price">€65</p>
                     </div>
                 </div>
 
-                <div class="gallery-item">
+                <div class="gallery-item" data-price="120">
                     <img src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=400&h=600&fit=crop" alt="Diseño 003">
+                    <span class="discount-badge">50% DTO.</span>
                     <div class="item-info">
-                        <div class="item-number">Nº 003</div>
-                        <p class="item-description">Abrigo de invierno</p>
+                        <div class="item-number">Abrigo de invierno</div>
+                        <p class="item-description">Nº 003</p>
+                        <p class="item-price">€120</p>
                     </div>
                 </div>
 
-                <div class="gallery-item">
+                <div class="gallery-item" data-price="45">
                     <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&h=600&fit=crop" alt="Diseño 004">
+                    <span class="discount-badge">70% DTO.</span>
                     <div class="item-info">
-                        <div class="item-number">Nº 004</div>
-                        <p class="item-description">Blusa formal</p>
+                        <div class="item-number">Blusa formal</div>
+                        <p class="item-description">Nº 004</p>
+                        <p class="item-price">€45</p>
                     </div>
                 </div>
 
-                <div class="gallery-item">
+                <div class="gallery-item" data-price="70">
                     <img src="https://images.unsplash.com/photo-1504198458649-3128b932f49e?w=400&h=600&fit=crop" alt="Diseño 005">
+                    <span class="discount-badge">90% DTO.</span>
                     <div class="item-info">
-                        <div class="item-number">Nº 005</div>
-                        <p class="item-description">Pantalón ejecutivo</p>
+                        <div class="item-number">Pantalón ejecutivo</div>
+                        <p class="item-description">Nº 005</p>
+                        <p class="item-price">€70</p>
                     </div>
                 </div>
 
-                <div class="gallery-item">
+                <div class="gallery-item" data-price="75">
                     <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=400&h=600&fit=crop" alt="Diseño 006">
                     <div class="item-info">
-                        <div class="item-number">Nº 006</div>
-                        <p class="item-description">Vestido de verano</p>
+                        <div class="item-number">Vestido de verano</div>
+                        <p class="item-description">Nº 006</p>
+                        <p class="item-price">€75</p>
                     </div>
                 </div>
 
-                <div class="gallery-item">
+                <div class="gallery-item" data-price="95">
                     <img src="https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?w=400&h=600&fit=crop" alt="Diseño 007">
                     <div class="item-info">
-                        <div class="item-number">Nº 007</div>
-                        <p class="item-description">Chaqueta moderna</p>
+                        <div class="item-number">Chaqueta moderna</div>
+                        <p class="item-description">Nº 007</p>
+                        <p class="item-price">€95</p>
                     </div>
                 </div>
 
-                <div class="gallery-item">
+                <div class="gallery-item" data-price="55">
                     <img src="https://images.unsplash.com/photo-1467043237213-65f2da53396f?w=400&h=600&fit=crop" alt="Diseño 008">
                     <div class="item-info">
-                        <div class="item-number">Nº 008</div>
-                        <p class="item-description">Falda midi elegante</p>
+                        <div class="item-number">Falda midi elegante</div>
+                        <p class="item-description">Nº 008</p>
+                        <p class="item-price">€55</p>
                     </div>
                 </div>
 
-                <div class="gallery-item">
+                <div class="gallery-item" data-price="60">
                     <img src="https://images.unsplash.com/photo-1558769132-cb1aea3c99ee?w=400&h=600&fit=crop" alt="Diseño 009">
                     <div class="item-info">
-                        <div class="item-number">Nº 009</div>
-                        <p class="item-description">Conjunto deportivo chic</p>
+                        <div class="item-number">Conjunto deportivo chic</div>
+                        <p class="item-description">Nº 009</p>
+                        <p class="item-price">€60</p>
                     </div>
                 </div>
             </div>
+        </section>
+
+        <!-- Sección Historia -->
+        <section id="historia" class="section">
+            <article class="story">
+                <div class="story-intro">
+                    <p class="story-label">ECO LANITAS</p>
+                    <h2>Prendas hechas con cariño, para acompañarte cada día.</h2>
+                    <p>Eco Lanitas nace del amor por crear piezas únicas, cómodas y llenas de personalidad. Cada prenda está pensada para que quien la use se sienta especial.</p>
+                </div>
+
+                <div class="story-grid">
+                    <div class="story-item">
+                        <section class="story-card">
+                            <h3>La historia detrás de Eco Lanitas</h3>
+                            <p>Este proyecto comenzó con una idea sencilla: convertir telas, colores y detalles en prendas que cuenten historias. Con dedicación y creatividad, Eco Lanitas fue creciendo hasta convertirse en un espacio donde cada diseño recibe atención especial.</p>
+                        </section>
+                        <img class="story-image" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=600&fit=crop" alt="Detalles de una prenda de Eco Lanitas">
+                    </div>
+
+                    <div class="story-item">
+                        <section class="story-card">
+                            <h3>Su fundadora</h3>
+                            <p>Detrás de Eco Lanitas está una emprendedora apasionada por la moda y el trabajo hecho a mano. Su mirada creativa guía cada colección, desde el primer boceto hasta el último acabado.</p>
+                            <p class="story-note">Aquí podemos añadir su nombre y una foto personal.</p>
+                        </section>
+                        <img class="story-image" src="https://images.unsplash.com/photo-1496217590455-aa63a8350eea?w=600&h=600&fit=crop" alt="Diseñadora trabajando en sus creaciones">
+                    </div>
+
+                    <div class="story-item">
+                        <section class="story-card">
+                            <h3>Así trabajamos</h3>
+                            <p>Muchas de nuestras prendas se realizan bajo pedido. Escuchamos lo que necesitas, cuidamos las tallas y detalles, y trabajamos cada pieza con paciencia para crear un resultado pensado para ti.</p>
+                        </section>
+                        <img class="story-image" src="https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?w=600&h=600&fit=crop" alt="Prendas creadas con cuidado">
+                    </div>
+                </div>
+
+                <blockquote class="story-quote">“Vestir también es una forma de expresar quién eres.”</blockquote>
+            </article>
         </section>
 
         <!-- Sección Compra/Pedido -->
@@ -361,7 +213,7 @@
                     </div>
 
                     <div class="card-info">
-                        <h3 style="margin-bottom: 20px;">Información de Tarjeta</h3>
+                        <h3 class="card-title">Información de Tarjeta</h3>
                         
                         <div class="form-group">
                             <label for="cardNumber">Número de Tarjeta *</label>
@@ -396,6 +248,10 @@
         // Navegación entre secciones
         const navButtons = document.querySelectorAll('.nav-btn');
         const sections = document.querySelectorAll('.section');
+        const minPriceInput = document.getElementById('minPrice');
+        const maxPriceInput = document.getElementById('maxPrice');
+        const filterMessage = document.getElementById('filterMessage');
+        const galleryItems = document.querySelectorAll('.gallery-item');
 
         navButtons.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -408,6 +264,44 @@
                 document.getElementById(sectionId).classList.add('active');
                 
                 window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+        // Filtro de catálogo por precio. Puede ampliarse con atributos data-
+        // adicionales, por ejemplo: data-size, data-color o data-category.
+        function filterProductsByPrice() {
+            const minPrice = minPriceInput.value === '' ? 0 : Number(minPriceInput.value);
+            const maxPrice = maxPriceInput.value === '' ? Infinity : Number(maxPriceInput.value);
+
+            if (minPrice > maxPrice) {
+                filterMessage.textContent = 'El precio mínimo no puede ser mayor que el máximo.';
+                return;
+            }
+
+            let visibleProducts = 0;
+            galleryItems.forEach(item => {
+                const price = Number(item.dataset.price);
+                const isVisible = price >= minPrice && price <= maxPrice;
+                item.hidden = !isVisible;
+                if (isVisible) visibleProducts++;
+            });
+
+            filterMessage.textContent = visibleProducts
+                ? `${visibleProducts} prenda${visibleProducts === 1 ? '' : 's'} encontrada${visibleProducts === 1 ? '' : 's'}.`
+                : 'No hay prendas en ese rango de precio.';
+        }
+
+        document.getElementById('filterByPrice').addEventListener('click', filterProductsByPrice);
+        document.getElementById('clearPriceFilter').addEventListener('click', () => {
+            minPriceInput.value = '';
+            maxPriceInput.value = '';
+            galleryItems.forEach(item => item.hidden = false);
+            filterMessage.textContent = '';
+        });
+
+        [minPriceInput, maxPriceInput].forEach(input => {
+            input.addEventListener('keydown', event => {
+                if (event.key === 'Enter') filterProductsByPrice();
             });
         });
 
