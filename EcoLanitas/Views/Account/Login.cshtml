@@ -1,0 +1,20 @@
+﻿<div class="login-container">
+    <h2>Iniciar sesion</h2>
+    @if (ViewBag.Error != null)
+    {
+        <p class="login-error">@ViewBag.Error</p>
+    }
+    <form method="post">
+    
+    <div>
+        <label>Email</label>
+        <input type="email" name="email" required/>
+    </div>
+    <div>
+        <label>Contrasena</label>
+        <input type="password" name="password" required/>
+    </div>
+    <button type="submit">Iniciar Sesion</button>
+</form>
+</div>
+
