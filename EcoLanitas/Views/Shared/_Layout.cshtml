@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco Lanitas - Catálogo 2026</title>
+    
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/ecolanitas.css" asp-append-version="true"/>
+</head>
+<body>
+<header>
+    <h1>ECO LANITAS</h1>
+    <h1>CATALOGO 2026</h1>
+    <nav>
+        <button class="nav-btn nav-gallery active" data-section="galeria">Galería</button>
+        <button class="nav-btn nav-history" data-section="historia">Nuestra Historia</button>
+        <button class="nav-btn nav-order" data-section="comprar">Hacer Pedido</button>
+    </nav>
+    
+</header>
+@if (User.Identity?.IsAuthenticated == true)
+{
+<button type="button" class="logout-btn" onclick="window.location.href='/Account/Logout'">Cerrar sesión</button>
+}
+else
+{
+<a asp-controller="Account" asp-action="Login" class="login-container">Inicia tu sesión aquí</a>
+}
+
+<div class="container">
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
+
+<footer class="border-top footer text-muted">
+    <div class="container">
+        &copy; 2026 - EcoLanitas.web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </div>
+</footer>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
