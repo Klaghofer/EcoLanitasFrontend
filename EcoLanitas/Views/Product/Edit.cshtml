@@ -1,19 +1,20 @@
-﻿@model EcoLanitas.web.Models.ProductFormViewModel
+@model EcoLanitas.web.Models.Product
 
-<h2>Nuevo producto</h2>
+<h2>Editar producto</h2>
 
 @if (ViewBag.Error != null)
 {
     <div class="alert alert-danger">@ViewBag.Error</div>
 }
 
-<form asp-action="Create" method="post">
+<form asp-action="Edit" method="post">
     @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="CreatedAt" />
 
     <div class="mb-3">
         <label asp-for="Name" class="form-label">Nombre</label>
         <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
@@ -41,5 +42,5 @@
         <label asp-for="Active" class="form-check-label">Activo</label>
     </div>
 
-    <button type="submit" class="btn btn-primary">Guardar</button>
+    <button type="submit" class="btn btn-primary">Guardar cambios</button>
 </form>

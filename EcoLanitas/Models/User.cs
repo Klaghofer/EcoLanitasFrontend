@@ -1,19 +1,21 @@
-﻿using Supabase.Postgrest.Attributes;
-using Supabase.Postgrest.Models;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EcoLanitas.web.Models;
 
-[Supabase.Postgrest.Attributes.Table("User")]
-public class User : BaseModel
+[Table("User")]
+public class User
 {
-    [PrimaryKey("id", false)]
+    [Key]
+    [Column("id")]
     public Guid Id { get; set; }
 
     [Column("created_at")]
     public DateTime CreatedAt { get; set; }
 
-    [Column("name")] public string Name { get; set; } = string.Empty;
+    [Column("name")]
+    public string Name { get; set; } = string.Empty;
 
-    [Column("role")] public string Role { get; set; } = string.Empty;
-
+    [Column("role")]
+    public string Role { get; set; } = string.Empty;
 }
