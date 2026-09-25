@@ -1,20 +1,24 @@
-﻿using System.Security.Claims;
+using System.Security.Claims;
+using EcoLanitas.web.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EcoLanitas.web.Controllers;
 
 public class AccountController : Controller
 {
     private readonly Supabase.Client _supabase;
+    private readonly AppDbContext _db;
 
-    public AccountController(Supabase.Client supabase)
+    public AccountController(Supabase.Client supabase, AppDbContext db)
     {
         _supabase = supabase;
+        _db = db;
     }
+
     [HttpGet]
-    // GET
     public IActionResult Login()
     {
         return View();
@@ -25,62 +29,55 @@ public class AccountController : Controller
     {
         try
         {
-            // check email & password with supabase AUTH
+            // Autenticación: sigue usando Supabase Auth (esto SIEMPRE funcionó bien).
             var session = await _supabase.Auth.SignIn(email, password);
+
             if (session == null)
             {
-                ViewBag.Error = "E-Mail o contrasena incorrectos.";
+                ViewBag.Error = "E-Mail o contraseña incorrectos.";
                 return View();
             }
 
             var authUser = _supabase.Auth.CurrentUser;
-            if (authUser == null)
+            if (authUser == null || string.IsNullOrEmpty(authUser.Id))
             {
-                ViewBag.Error = " no se pudo encontrar el usuario";
+                ViewBag.Error = "No se pudo encontrar el usuario.";
                 return View();
             }
-            
-            if (string.IsNullOrEmpty(authUser.Id))
-            {
-                ViewBag.Error = "usuario no tiene un id valido";
-                return View();
-            }
+
             var userId = Guid.Parse(authUser.Id);
-            
-            var result = await _supabase
-                .From<EcoLanitas.web.Models.User>()
-                .Where(x => x.Id == userId)
-                .Get();
-            var user = result.Models.FirstOrDefault();
+
+            // Datos del perfil: ahora se leen directo de Postgres con EF Core,
+            // sin depender de RLS ni de tokens viajando entre capas.
+            var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == userId);
+
             if (user == null)
             {
-                ViewBag.Error = "no existe el perfil de este usuario";
+                ViewBag.Error = "No existe el perfil de este usuario.";
                 return View();
             }
 
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, authUser.Id),
-                new Claim(ClaimTypes.Email, email ??""),
-                new Claim(ClaimTypes.Name, user.Name  ??""),
-                new Claim(ClaimTypes.Role, user.Role ??""),
+                new Claim(ClaimTypes.Email, email ?? ""),
+                new Claim(ClaimTypes.Name, user.Name ?? ""),
+                new Claim(ClaimTypes.Role, user.Role ?? ""),
             };
 
             var identity = new ClaimsIdentity(claims, "Cookies");
-
             var principal = new ClaimsPrincipal(identity);
             await HttpContext.SignInAsync("Cookies", principal);
+
             return RedirectToAction("Index", "Home");
-            
-            
         }
         catch (Exception)
         {
             ViewBag.Error = "No se pudo iniciar sesión.";
-            throw;
+            return View();
         }
     }
-    //logout
+
     [Authorize]
     public async Task<IActionResult> Logout()
     {

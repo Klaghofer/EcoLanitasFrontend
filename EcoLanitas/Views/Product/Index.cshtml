@@ -1,18 +1,40 @@
-﻿@model IEnumerable<EcoLanitas.web.Models.Product>
+@model IEnumerable<EcoLanitas.web.Models.Product>
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Productos";
     Layout = "_Layout";
 }
 
 <h2>Productos</h2>
 
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+@if (User.IsInRole("admin"))
+{
+    <a asp-action="Create" class="btn btn-primary mb-3">+ Nuevo producto</a>
+}
+
 @foreach (var product in Model)
 {
-    <div>
+    <div class="mb-4 pb-3 border-bottom">
         <h3>@product.Name</h3>
-        <h3>@product.Description</h3>
-        <h3>Precio: @product.Price €</h3>
-        <h3>Stock: @product.Stock</h3>
+        <p>@product.Description</p>
+        <p>Precio: @product.Price €</p>
+        <p>Stock: @product.Stock</p>
+
+        @if (User.IsInRole("admin"))
+        {
+            <a asp-action="Edit" asp-route-id="@product.Id" class="btn btn-sm btn-secondary">Editar</a>
+            <form asp-action="Delete" asp-route-id="@product.Id" method="post" style="display:inline">
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-sm btn-danger"
+                        onclick="return confirm('¿Seguro que quieres eliminar este producto?');">
+                    Eliminar
+                </button>
+            </form>
+        }
     </div>
 }
